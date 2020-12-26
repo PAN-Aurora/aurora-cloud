@@ -1,0 +1,40 @@
+spring:
+    application:
+        name: aurora-geteway
+    cloud:
+        inetutils:
+          default-ip-address:  192.168.109.100
+server:
+  port: 1000
+
+eureka:
+  instance:
+    hostname:  192.168.109.100
+    ##以ip注册到注册中心
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
+
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.109.100:8671/eureka/
+
+
+#zuul:
+#  # 前缀，可以用来做版本控制
+#  prefix: /v1
+#  # 禁用默认路由，执行配置的路由
+#  ignored-services: "*"
+#  routes:
+#    # 配置6001接口微服务
+#    pro6001:
+#      serviceId: node05-provider-6001
+#      path: /api-6001/**
+#    # 配置6002接口微服务
+#    pro6002:
+#      serviceId: node05-provider-6002
+#      path: /api-6002/**
+
+
+
+
+
