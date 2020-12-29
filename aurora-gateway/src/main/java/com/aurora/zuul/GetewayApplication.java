@@ -2,8 +2,8 @@ package com.aurora.zuul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
-
 /**
  *  zuul 路由控制
  * @author :PHQ
@@ -11,8 +11,10 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  **/
 @SpringBootApplication
 @EnableZuulProxy
+@EnableDiscoveryClient
 public class GetewayApplication {
         public static void main(String[] args) {
+
             SpringApplication.run(GetewayApplication.class, args);
         }
 }

@@ -35,6 +35,8 @@
     <module>aurora-config</module>
     <module>aurora-common</module>
     <module>aurora-admin</module>
+    <module>aurora-admin-test</module>
+    <module>aurora-esearch</module>
   </modules>
 
 
@@ -59,6 +61,14 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+
+    <!-- DevTools 热部署  -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
     <!--集成 lombok-->
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -66,6 +76,7 @@
       <version>1.16.20</version>
       <scope>provided</scope>
     </dependency>
+
     <!--集成 swagger-->
     <dependency>
       <groupId>io.springfox</groupId>
@@ -77,6 +88,8 @@
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${swagger.version}</version>
     </dependency>
+
+
   </dependencies>
 
   <!--构建工具-->
