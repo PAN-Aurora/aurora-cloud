@@ -1,0 +1,36 @@
+spring:
+    application:
+        name: aurora-esearch
+    cloud:
+        inetutils:
+          default-ip-address:  192.168.109.100
+server:
+  port: 1300
+
+## eureka 配置 地址
+eureka:
+  instance:
+    hostname:  192.168.109.100
+    ##以ip注册到注册中心
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
+  ###客户端注册的注册中心
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.109.100:8671/eureka/
+
+##  true 表示 ribbon 与 eureka 结合使用  false表示可以脱离 eureka
+#ribbon:
+#  eureka:
+#    enabled: true
+#feign的配置，连接超时及读取超时配置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+
+
