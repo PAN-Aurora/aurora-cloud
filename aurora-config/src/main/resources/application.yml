@@ -1,19 +1,19 @@
 spring:
     ##服务名称
     application:
-        name: aurora-config
+        name: aurora-filter
   #设置使用本地配置(默认是git,可以设置：subversion(SVN)，native(本地))
 #    profiles:
 #           active: git
     cloud:
         inetutils:
           default-ip-address: 192.168.109.100
-     ##config 配置
+     ##filter 配置
         config:
           server:
             ####git路径和 用户名密码
             git:
-              uri: https://github.com/PAN-Aurora/aurora-cloud-config.git
+              uri: https://github.com/PAN-Aurora/aurora-cloud-filter.git
               username: pan_2604390947@163.com
               password: phq3479157
               force-pull: true
@@ -26,7 +26,7 @@ spring:
           ribbon:
             enabled:  false
 
-   ###表示让 config-server 从 classpath 下查找配置，而不是去 Git 仓库中查找
+   ###表示让 filter-server 从 classpath 下查找配置，而不是去 Git 仓库中查找
 #    profiles:
 #      active: native
 

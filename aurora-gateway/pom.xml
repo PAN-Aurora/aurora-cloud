@@ -20,16 +20,26 @@
     </properties>
 
     <dependencies>
+
+        <!--公共模块-->
+        <dependency>
+            <groupId>com.aurora</groupId>
+            <artifactId>aurora-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-security</artifactId>-->
         <!--</dependency>-->
+
         <!-- eureka-client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!--zuul网关服务-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
@@ -44,7 +54,7 @@
 
         <!--<dependency>-->
             <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-config</artifactId>-->
+            <!--<artifactId>spring-cloud-starter-filter</artifactId>-->
         <!--</dependency>-->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->

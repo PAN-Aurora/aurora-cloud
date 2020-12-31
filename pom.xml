@@ -55,6 +55,13 @@
 
   <!-- 项目依赖-->
   <dependencies>
+
+    <!--RabbitMq-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency>
+
     <!-- actuator健康检查  -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

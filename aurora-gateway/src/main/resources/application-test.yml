@@ -1,0 +1,55 @@
+spring:
+    profiles: test
+    application:
+        name: aurora-geteway
+    cloud:
+        inetutils:
+          default-ip-address:  192.168.109.100
+server:
+  port: 1000
+
+eureka:
+  instance:
+    hostname:  192.168.109.100
+    ##以ip注册到注册中心
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
+
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.109.100:8671/eureka/
+
+
+zuul:
+  # 前缀，可以用来做版本控制
+  prefix: /api
+  # 禁用默认路由，执行配置的路由
+ # ignored-services: "*"
+  ignored-services: "aurora-admin,aurora-esearch"
+  routes:
+    # 配置6001接口微服务
+    pro1200:
+      serviceId: aurora-admin
+      path: /api-1200/**
+    pro1300:
+      serviceId: aurora-esearch
+      path: /api-1300/**
+
+   ##设置过滤敏感的请求头信息  设置为空就不会过滤
+  sensitive-headers: Cookie, Set-Cookie,Authorization
+  ##设置为true 重定向添加 host请求头
+  add-host-header: true
+  ignored-patterns:
+         -/api-1200/**
+
+
+    # 配置6002接口微服务
+
+###由由于Zuul自动集成了Ribbon和Hystrix  因此具有负载均衡的效果
+
+#跳过认证的路由
+jwt:
+  skip-auth-urls:
+    - /auth/login
+    - /test
+
