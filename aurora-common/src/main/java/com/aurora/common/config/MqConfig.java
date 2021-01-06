@@ -19,16 +19,17 @@ public class MqConfig {
 
     @Autowired
     RabbitConfig rabbitConfig;
-
+    //交换机
     public static final String EXCHANGE_A = "my-mq-exchange_A";
     public static final String EXCHANGE_B = "my-mq-exchange_B";
     public static final String EXCHANGE_C = "my-mq-exchange_C";
 
-
+    //消息队列
     public static final String QUEUE_A = "QUEUE_A";
     public static final String QUEUE_B = "QUEUE_B";
     public static final String QUEUE_C = "QUEUE_C";
 
+    //路由关键字
     public static final String ROUTINGKEY_A = "spring-boot-routingKey_A";
     public static final String ROUTINGKEY_B = "spring-boot-routingKey_B";
     public static final String ROUTINGKEY_C = "spring-boot-routingKey_C";
@@ -42,7 +43,9 @@ public class MqConfig {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitConfig.host,rabbitConfig.port);
         connectionFactory.setUsername(rabbitConfig.username);
         connectionFactory.setPassword(rabbitConfig.password);
+        //虚拟主机，一个broker里可以开设多个vhost，用作不同用户的权限分离
         connectionFactory.setVirtualHost("/");
+
         connectionFactory.setPublisherConfirms(true);
         return connectionFactory;
     }
