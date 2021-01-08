@@ -1,5 +1,6 @@
 package com.aurora.common.aspect;
 
+import com.aurora.common.service.RabbitService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -8,6 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -26,6 +28,9 @@ public class LogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
+    @Autowired
+    RabbitService rabbitService;
+
     //定义切点 针对类上注解含有SystemLog
     @Pointcut(value = "@annotation(com.aurora.common.annotation.SystemLog)")
     public void logPointCut(){}
@@ -38,6 +43,7 @@ public class LogAspect {
     @AfterReturning(returning = "ret",pointcut = "logPointCut()")
     public void saveSysLog(JoinPoint joinPoint, Object ret){
         logger.info("日志记录开始.........");
+        rabbitService.sendMsg("日志记录开始.....");
     }
 
     /**
