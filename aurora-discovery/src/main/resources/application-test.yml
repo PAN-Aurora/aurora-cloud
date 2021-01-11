@@ -16,13 +16,13 @@ spring:
     name:  aurora-discovery
   cloud:
     inetutils:
-      default-ip-address:  192.168.109.100
+      default-ip-address:  127.0.0.1
 server:
   port: 8671
 
 eureka:
   instance:
-    hostname:  192.168.109.100
+    hostname:  127.0.0.1
     lease-expiration-duration-in-seconds: 15 #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除 默认90s
   #服务刷新时间配置，每隔这个时间会主动心跳一次 默认30s
     lease-renewal-interval-in-seconds: 5

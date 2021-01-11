@@ -3,6 +3,7 @@ package com.aurora.common.service;
 import com.aurora.common.config.MqConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class RabbitServiceImpl implements  RabbitService,RabbitTemplate.ConfirmC
     }
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    public Queue queue(){
+         return new Queue(MqConfig.QUEUE_A);
+    }
 
     public void sendMsg(String content) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());

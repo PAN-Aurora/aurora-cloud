@@ -1,7 +1,10 @@
 package com.aurora.admin.test;
 
 import com.aurora.admin.api.TestFeign;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,4 +35,6 @@ public class TestController {
     public  String  testEs(){
          return   testFeign.test();
     }
+
+
 }

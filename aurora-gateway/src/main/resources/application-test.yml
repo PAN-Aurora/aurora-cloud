@@ -4,20 +4,20 @@ spring:
         name: aurora-geteway
     cloud:
         inetutils:
-          default-ip-address:  192.168.109.100
+          default-ip-address:  127.0.0.1
 server:
   port: 1000
 
 eureka:
   instance:
-    hostname:  192.168.109.100
+    hostname:  ${spring.cloud.inetutils.default-ip-address}
     ##以ip注册到注册中心
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
 
   client:
     serviceUrl:
-      defaultZone: http://192.168.109.100:8671/eureka/
+      defaultZone: http://${spring.cloud.inetutils.default-ip-address}:8671/eureka/
 
 
 zuul:

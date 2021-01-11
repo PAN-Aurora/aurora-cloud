@@ -4,7 +4,7 @@ spring:
         name: aurora-admin
     cloud:
         inetutils:
-          default-ip-address:  192.168.109.100
+          default-ip-address:  127.0.0.1
     # 配置数据源
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
@@ -51,13 +51,13 @@ server:
 
 eureka:
   instance:
-    hostname:  192.168.109.100
+    hostname:  ${spring.cloud.inetutils.default-ip-address}
     ##以ip注册到注册中心
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
   client:
     serviceUrl:
-      defaultZone: http://192.168.109.100:8671/eureka/
+      defaultZone: http://${spring.cloud.inetutils.default-ip-address}:8671/eureka/
 
 # mybatis-plus相关配置
 mybatis-plus:
