@@ -9,12 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>aurora-logger</artifactId>
+    <artifactId>aurora-model</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
     <!--版本属性-->
     <properties>
-        <mysql-connetor-java.version>5.1.24</mysql-connetor-java.version>
         <mybatis-plus-boot-starter.version>3.3.0</mybatis-plus-boot-starter.version>
-        <druid-version>1.1.9</druid-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -22,39 +23,11 @@
 
     <!--依赖-->
     <dependencies>
-        <!--公共模块-->
-        <dependency>
-            <groupId>com.aurora</groupId>
-            <artifactId>aurora-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connetor-java.version}</version>
-            <!--<scope>runtime</scope>-->
-        </dependency>
-
         <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
-        </dependency>
-
-        <!-- 引入阿里数据库连接池 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid-version}</version>
-        </dependency>
-
-        <!-- eureka-client -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
 
@@ -78,4 +51,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

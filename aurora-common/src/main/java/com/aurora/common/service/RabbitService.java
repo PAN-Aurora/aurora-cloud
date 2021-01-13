@@ -12,6 +12,7 @@ public interface RabbitService {
      * @param content
      */
     public void sendMsg(String content);
+    public void sendMsg(Object content);
 
     /**
      * 指定交换机和路由路由关键字

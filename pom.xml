@@ -37,7 +37,8 @@
     <module>aurora-admin</module>
     <module>aurora-admin-test</module>
     <module>aurora-esearch</module>
-      <module>aurora-logger</module>
+    <module>aurora-logger</module>
+    <module>aurora-model</module>
   </modules>
 
 

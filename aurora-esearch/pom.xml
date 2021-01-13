@@ -20,6 +20,14 @@
     </properties>
 
     <dependencies>
+
+        <!--公共模块-->
+        <dependency>
+            <groupId>com.aurora</groupId>
+            <artifactId>aurora-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- 微服务客户端-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -48,6 +56,24 @@
             <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
             <!--</exclusion>-->
             <!--</exclusions>-->
+        </dependency>
+
+        <!--集成elasticsearch-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+            <version>6.4.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
         </dependency>
 
         <!-- DevTools 热部署  -->

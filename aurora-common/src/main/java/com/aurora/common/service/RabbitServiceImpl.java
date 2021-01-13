@@ -19,32 +19,22 @@ import java.util.UUID;
  * @date：2020/12/31
  **/
 @Component
-public class RabbitServiceImpl implements  RabbitService,RabbitTemplate.ConfirmCallback {
+public class RabbitServiceImpl implements  RabbitService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-   // Confirm模式  所有消息发送且返回确认
-    @Override
-    public void confirm(@Nullable CorrelationData correlationData, boolean ack, @Nullable String cause) {
-        logger.info(" 回调id:" + correlationData);
-        if (ack) {
-            logger.info("消息成功消费");
-        } else {
-            logger.info("消息消费失败:" + cause);
-        }
-
-    }
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
-    public Queue queue(){
-         return new Queue(MqConfig.QUEUE_A);
-    }
 
     public void sendMsg(String content) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
         //把消息放入ROUTINGKEY_A对应的队列当中去，对应的是队列A
-        rabbitTemplate.convertAndSend(MqConfig.EXCHANGE_A, MqConfig.ROUTINGKEY_A, content, correlationId);
+        rabbitTemplate.convertAndSend(MqConfig.LOGGER_EXCHANGE_NAME, MqConfig.LOGGER_ROUTING_KEY_NAME, content, correlationId);
+    }
+    public void sendMsg(Object content) {
+        CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
+        //把消息放入ROUTINGKEY_A对应的队列当中去，对应的是队列A
+        rabbitTemplate.convertAndSend(MqConfig.LOGGER_EXCHANGE_NAME, MqConfig.LOGGER_ROUTING_KEY_NAME, content, correlationId);
     }
 
     public void sendMsg(String exchange, String routingKey,String content) {
