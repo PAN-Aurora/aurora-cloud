@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -53,6 +55,9 @@ public class RoleServiceImpl implements RoleService {
         }
         IPage<Role> userIPage =  roleMapper.selectPage(page,queryWrapper);
         List<Role> roleList =  userIPage.getRecords();
+
+        List lsit  =new LinkedList();
+        Arrays.asList(lsit);
 
         //遍历角色获取菜单资源
         roleList.forEach(role -> {
