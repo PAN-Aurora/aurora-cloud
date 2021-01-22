@@ -1,6 +1,7 @@
 package com.aurora.admin.controller.auth;
 
 import com.aurora.admin.api.auth.AuthService;
+import com.aurora.admin.model.auth.ResponseUserToken;
 import com.aurora.admin.model.auth.User;
 import com.aurora.common.annotation.GuavaRateLimiter;
 import com.aurora.common.annotation.PassJwtToken;
@@ -11,9 +12,12 @@ import com.aurora.common.utils.StringUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +29,9 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+
 
     @Autowired
     private AuthService authService;
@@ -50,41 +57,25 @@ public class AuthController {
         return response;
     }
 
-//    /**
-//     * 退出
-//     * @param request
-//     * @return
-//     */
-//    @GetMapping(value = "/logout")
-//    @PassJwtToken
-//    @SystemLog(module="用户权限模块",methods="退出登录",url="/api/auth/logout", desc="退出登录")
-//    @ApiOperation(value="退出登录", notes="通过接口注销登录，清除token ",httpMethod = "GET")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "request", value = "HttpServletRequest对象需要携带token", required = true, dataType = "HttpServletRequest")
-//    })
-//    public ResultModel logout(HttpServletRequest request){
-//        String token = request.getHeader(tokenHeader);
-//        if (token == null) {
-//            return ResultModel.failure(ResultCode.UNAUTHORIZED);
-//        }
-//        authService.logout(token);
-//        return ResultModel.result(ResultCode.SUCCESS);
-//    }
-
-//    @GetMapping(value = "refresh")
-//    @SystemLog(module="用户权限模块",methods="刷新token",url="/api/auth/refresh", desc="刷新token")
-//    @ApiOperation(value="刷新token", notes="通过接口刷新token ",httpMethod = "GET")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "request", value = "HttpServletRequest对象需要携带token", required = true, dataType = "HttpServletRequest")
-//    })
-//    public ResultModel refreshAndGetAuthenticationToken(HttpServletRequest request){
-//        String token = request.getHeader(tokenHeader);
-//        ResponseUserToken response = authService.refresh(token);
-//        if(response == null) {
-//            return ResultModel.failure(ResultCode.BAD_REQUEST, "token无效");
-//        } else {
-//            return ResultModel.success();
-//        }
-//    }
-
+    /**
+     * 退出
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "/logout")
+    @PassJwtToken
+    @SystemLog(module="用户权限模块",methods="退出登录",url="/api/auth/logout", desc="退出登录")
+    @ApiOperation(value="退出登录", notes="通过接口注销登录，清除token ",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "request", value = "HttpServletRequest对象需要携带token", required = true, dataType = "HttpServletRequest")
+    })
+    public ResultModel logout(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        log.info("tokn:"+token);
+        if (token == null) {
+            return ResultModel.failure(ResultCode.UNAUTHORIZED);
+        }
+        authService.logout(token);
+        return ResultModel.result(ResultCode.SUCCESS);
+    }
 }

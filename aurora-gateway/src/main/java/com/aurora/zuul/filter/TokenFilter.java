@@ -108,7 +108,7 @@ public class TokenFilter extends  ZuulFilter {
         log.info("用户详情："+ FastJsonUtil.collectToString(claims));
 
          //刷新当前key过期时间 30分钟
-         redisService.expire(String.valueOf(claims.get("username")),30L, TimeUnit.MINUTES);
+         redisService.expire(String.valueOf(claims.get("username")),60L, TimeUnit.MINUTES);
 
         //存放到header
        // requestContext.addZuulRequestHeader("user", FastJsonUtil.collectToString(claims));

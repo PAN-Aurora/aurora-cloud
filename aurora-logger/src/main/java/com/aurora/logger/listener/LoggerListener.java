@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
  * @author :PHQ
  * @date：2021/1/13
  **/
-@Component
-@RabbitListener(queues = "logger.queue")
+//@Component
+//@RabbitListener(queues = "logger.queue")
 public class LoggerListener {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggerListener.class);

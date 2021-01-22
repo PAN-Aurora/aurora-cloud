@@ -3,8 +3,11 @@ package com.aurora.admin.service.auth;
 import com.alibaba.fastjson.JSONObject;
 import com.aurora.admin.api.auth.AuthService;
 import com.aurora.admin.mapper.auth.AuthMapper;
+import com.aurora.admin.mapper.system.ResourceMapper;
 import com.aurora.admin.model.auth.ResponseUserToken;
 import com.aurora.admin.model.auth.User;
+import com.aurora.admin.model.system.Resource;
+import com.aurora.admin.model.system.Role;
 import com.aurora.common.model.ResultCode;
 import com.aurora.common.model.ResultModel;
 import com.aurora.common.service.JwtService;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +37,9 @@ public class AuthServiceImpl  implements AuthService {
 
     @Autowired
    AuthMapper  authMapper;
+
+    @Autowired
+    ResourceMapper resourceMapper;
 
     @Autowired
     RedisService  redisService;
@@ -65,6 +72,19 @@ public class AuthServiceImpl  implements AuthService {
             for (Map.Entry<String, Object> entry : entrySet) {
                 claims.put(entry.getKey(), entry.getValue());
             }
+
+            //获取用户对应角色权限信息
+            Role role = authMapper.findRoleByUserId(loginUser);
+            loginUser.setRole(role);
+
+            if(role!= null){
+                //根据角色查询角色资源
+                List<Resource> menuList =   resourceMapper.getResourceListByRoleId(role.getId());
+                loginUser.setMenuList(menuList);
+
+                List<Resource>  resourceList =   resourceMapper.getResourceListByType(role.getId());
+                loginUser.setResourceList(resourceList);
+            }
             //增加claims userid 和权限
             claims.put(CLAIM_KEY_USER_ID,loginUser.getId());
             //获取菜单权限
@@ -72,18 +92,23 @@ public class AuthServiceImpl  implements AuthService {
            //生成token 并将token进行保存
            String  token  =   jwtService.generateAccessToken(loginUser.getUsername(),claims);
            //30分钟
-           redisService.set(loginUser.getUsername(),token,30L, TimeUnit.MINUTES);
+           redisService.set(loginUser.getUsername(),token,60L, TimeUnit.MINUTES);
 
-           return  ResultModel.successData(ResultCode.SUCCESS, new ResponseUserToken(token, user));
+           return  ResultModel.successData(ResultCode.SUCCESS, new ResponseUserToken(token, loginUser));
 
         }else{
              return ResultModel.failure(ResultCode.LOGIN_ERROR,"暂无用户");
         }
     }
 
+    /**
+     *  redis 将token进行清除
+     * @param token
+     */
     @Override
     public void logout(String token) {
-
+        String userNmae =  jwtService.getUsernameFromToken(token);
+        redisService.remove(userNmae);
     }
 
     @Override

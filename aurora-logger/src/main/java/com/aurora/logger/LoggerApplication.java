@@ -1,5 +1,6 @@
 package com.aurora.logger;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +15,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  **/
 @SpringBootApplication
 @EnableEurekaClient
+@MapperScan("com.aurora.*.mapper")
 public class LoggerApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggerApplication.class);
