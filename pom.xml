@@ -37,6 +37,7 @@
     <module>aurora-admin</module>
     <module>aurora-esearch</module>
     <module>aurora-logger</module>
+    <module>aurora-jpa</module>
   </modules>
 
 
@@ -95,8 +96,6 @@
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${swagger.version}</version>
     </dependency>
-
-
   </dependencies>
 
   <!--构建工具-->

@@ -1,10 +1,12 @@
+server:
+  port: 2000
 spring:
-    profiles: test
     application:
-        name: aurora-admin
+        name: aurora-jpa
     cloud:
         inetutils:
           default-ip-address:  127.0.0.1
+
     # 配置数据源
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
@@ -40,15 +42,25 @@ spring:
         filters: stat, wall, log4j
         # 合并多个DruidDataSource的监控数据
         useGlobalDataSourceStat: true
-
+####jpa 配置 使用 hibernate 数据库mysql
+    jpa:
+        ##配置数据库类型和方言
+        database: MySQL
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        ##是否显示sql语句
+        show-sql: true
+        hibernate:
+        ## create create-drop   update validate
+          ddl-auto: update
+        ##sql语句格式化
+        properties:
+              hibenate:
+                format_sql: true
 #开启自动部署
 devtools:
   restart:
     enabled: true
-
-server:
-  port: 1200
-
+## eureka 客户端配置
 eureka:
   instance:
     hostname:  ${spring.cloud.inetutils.default-ip-address}
@@ -59,27 +71,6 @@ eureka:
     serviceUrl:
       defaultZone: http://${spring.cloud.inetutils.default-ip-address}:8671/eureka/
 
-# mybatis-plus相关配置
-mybatis-plus:
-  # xml扫描，多个目录用逗号或者分号分隔
-  mapper-locations: classpath*:mapper/**/*.xml
-  type-aliases-package: com.aurora.admin.model
-  # 以下配置均有默认值,可以不设置
-  global-config:
-    db-config:
-      #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
-      id-type: auto
-      #字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
-      field-strategy: IGNORED
-      #数据库类型
-      db-type: MYSQL
-  configuration:
-    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
-    map-underscore-to-camel-case: true
-    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
-    call-setters-on-nulls: false
-    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 

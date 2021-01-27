@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/testController")
 public class TestController {
-
     @Autowired
     TestFeign testFeign;
 

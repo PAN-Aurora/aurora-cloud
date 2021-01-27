@@ -34,6 +34,9 @@ zuul:
     pro1300:
       serviceId: aurora-esearch
       path: /api-1300/**
+    pro2000:
+      serviceId: aurora-jpa
+      path: /api-2000/**
 
    ##设置过滤敏感的请求头信息  设置为空就不会过滤
   sensitive-headers: Cookie, Set-Cookie,Authorization
