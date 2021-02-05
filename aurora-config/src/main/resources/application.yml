@@ -1,26 +1,27 @@
 spring:
     ##服务名称
     application:
-        name: aurora-filter
+        name: aurora-config
   #设置使用本地配置(默认是git,可以设置：subversion(SVN)，native(本地))
 #    profiles:
 #           active: git
     cloud:
         inetutils:
-          default-ip-address: 192.168.109.100
+          default-ip-address: 192.168.109.99
      ##filter 配置
         config:
           server:
             ####git路径和 用户名密码
             git:
-              uri: https://github.com/PAN-Aurora/aurora-cloud-filter.git
+              uri: https://github.com/PAN-Aurora/aurora-cloud-config.git
               username: pan_2604390947@163.com
               password: phq3479157
               force-pull: true
               ##对应git地址下文件所在根目录
-              search-paths: aurora-admin
+              search-paths:  config-repo
               ##使用默认分支  可以是主分支 也可以是其他分支
-              default-label: master
+              #default-label: master
+              default-label: main
         ## ribbon 默认使用 RibbonLoadBalancerClient
         loadbalancer:
           ribbon:
@@ -36,7 +37,7 @@ server:
 
 eureka:
   instance:
-    hostname: 192.168.109.100
+    hostname: 192.168.109.99
     ##以ip注册到注册中心
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
@@ -44,7 +45,7 @@ eureka:
 ## 微服务客户端
   client:
     serviceUrl:
-      defaultZone: http://192.168.109.100:8671/eureka/
+      defaultZone: http://192.168.109.99:8671/eureka/
 
 #开放刷新等访问端口
 management:

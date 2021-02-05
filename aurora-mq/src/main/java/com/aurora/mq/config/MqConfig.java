@@ -1,4 +1,4 @@
-package com.aurora.common.config;
+package com.aurora.mq.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,14 +7,11 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 /**
  * 队列config
@@ -74,7 +71,8 @@ public class MqConfig {
                 logger.info("消息发送到Exchange:id: {}",msgId);
 
             } else {
-                logger.info("消息发送到Exchange失败, {}, cause: {}", correlationData, cause);
+                logger.info("消息发送到Exchange失败, {}", correlationData);
+                logger.info("消息发送到Exchange失败, cause: {}", correlationData, cause);
             }
         });
 
@@ -82,7 +80,11 @@ public class MqConfig {
         rabbitTemplate.setMandatory(true);
         // 消息是否从Exchange路由到Queue, 注意: 这是一个失败回调, 只有消息从Exchange路由到Queue失败才会回调这个方法
         rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
-            logger.info("消息从Exchange路由到Queue失败: exchange: {}, route: {}, replyCode: {}, replyText: {}, message: {}", exchange, routingKey, replyCode, replyText, message);
+            logger.info("消息从Exchange路由到Queue失败: exchange: {}", exchange);
+            logger.info("消息从Exchange路由到Queue失败: route: {}", routingKey);
+            logger.info("消息从Exchange路由到Queue失败: replyCode: {}",replyCode);
+            logger.info("消息从Exchange路由到Queue失败: replyText: {}",replyText);
+            logger.info("消息从Exchange路由到Queue失败: message: {}",message);;
         });
 
         return rabbitTemplate;

@@ -1,4 +1,4 @@
-package com.aurora.common.service;
+package com.aurora.mq.service;
 
 /**
  * todo..
@@ -20,6 +20,6 @@ public interface RabbitService {
      * @param routingKey
      * @param content
      */
-    public void sendMsg(String exchange, String routingKey,String content);
+    public void sendMsg(String exchange, String routingKey, String content);
 
 }

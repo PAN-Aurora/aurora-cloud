@@ -34,6 +34,9 @@ zuul:
     pro1300:
       serviceId: aurora-esearch
       path: /api-1300/**
+    pro1600:
+      serviceId: aurora-mq
+      path: /api-1600/**
     pro2000:
       serviceId: aurora-jpa
       path: /api-2000/**

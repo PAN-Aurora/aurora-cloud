@@ -1,3 +1,5 @@
+server:
+  port: 1200
 spring:
     profiles: prod
     application:
@@ -46,8 +48,6 @@ devtools:
   restart:
     enabled: true
 
-server:
-  port: 1200
 
 eureka:
   instance:

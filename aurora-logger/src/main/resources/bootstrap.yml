@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        service-id: aurora-config
+        enabled: true
+      label: main
+      profile: test
+    inetutils:
+      default-ip-address: 127.0.0.1
+  application:
+    name: aurora-logger
+eureka:
+  instance:
+    hostname:  ${spring.cloud.inetutils.default-ip-address}
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.cloud.inetutils.default-ip-address}:8671/eureka/

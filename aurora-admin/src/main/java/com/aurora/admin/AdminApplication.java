@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(scanBasePackages = {"com.aurora.*"})
 @EnableDiscoveryClient
 @EnableFeignClients
+@RefreshScope
 @MapperScan("com.aurora.*.mapper")
 public class AdminApplication {
     private static final Logger logger = LoggerFactory.getLogger(AdminApplication.class);

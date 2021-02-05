@@ -1,12 +1,12 @@
 server:
-  port: 1200
+  port: 1800
 spring:
     profiles: dev
     application:
-        name: aurora-admin
+        name: aurora-logger
     cloud:
         inetutils:
-          default-ip-address:  192.168.109.100
+          default-ip-address:  127.0.0.1
     # 配置数据源
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
@@ -42,22 +42,32 @@ spring:
         filters: stat, wall, log4j
         # 合并多个DruidDataSource的监控数据
         useGlobalDataSourceStat: true
-
+ ###rabbitmq配置
+    rabbitmq:
+      password: guest
+      username: guest
+      host: 127.0.0.1
+      port: 5672
+ ##配置服务链路跟踪
+    zipkin:
+      base-url: http://127.0.0.1:9411/
+       ##使用reabbitmq 服务跟踪信息发送到 rebbit 名称为Queue的队列
+      sender:
+         type: rabbit
 #开启自动部署
 devtools:
   restart:
     enabled: true
-
-
+## eureka 客户端配置
 eureka:
   instance:
-    hostname:  192.168.109.100
+    hostname:  ${spring.cloud.inetutils.default-ip-address}
     ##以ip注册到注册中心
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.inetutils.default-ip-address}:${server.port}
   client:
     serviceUrl:
-      defaultZone: http://192.168.109.100:8671/eureka/
+      defaultZone: http://${spring.cloud.inetutils.default-ip-address}:8671/eureka/
 
 # mybatis-plus相关配置
 mybatis-plus:
@@ -80,7 +90,6 @@ mybatis-plus:
     call-setters-on-nulls: false
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
 
 
 

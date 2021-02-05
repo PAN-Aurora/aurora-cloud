@@ -1,3 +1,5 @@
+server:
+  port: 1200
 spring:
     profiles: test
     application:
@@ -40,14 +42,24 @@ spring:
         filters: stat, wall, log4j
         # 合并多个DruidDataSource的监控数据
         useGlobalDataSourceStat: true
+    ###rabbitmq配置
+    rabbitmq:
+      password: guest
+      username: guest
+      host: 127.0.0.1
+      port: 5672
+    ##配置服务链路跟踪
+    zipkin:
+      base-url: http://127.0.0.1:9411/
+      ##使用reabbitmq 服务跟踪信息发送到 rebbit 名称为Queue的队列
+      sender:
+        type: rabbit
 
 #开启自动部署
 devtools:
   restart:
     enabled: true
 
-server:
-  port: 1200
 
 eureka:
   instance:

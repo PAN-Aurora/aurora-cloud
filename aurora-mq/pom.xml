@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>aurora-jpa</artifactId>
-
+    <artifactId>aurora-mq</artifactId>
     <!--版本属性-->
     <properties>
         <mysql-connetor-java.version>5.1.24</mysql-connetor-java.version>
@@ -29,25 +28,10 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!--引入jpa-->
+        <!--RabbitMq-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connetor-java.version}</version>
-            <!--<scope>runtime</scope>-->
-        </dependency>
-
-        <!-- 引入阿里数据库连接池 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid-version}</version>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
         <!-- eureka-client -->
@@ -89,4 +73,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

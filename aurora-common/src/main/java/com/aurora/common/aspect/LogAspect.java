@@ -1,16 +1,12 @@
 package com.aurora.common.aspect;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.aurora.common.annotation.PassJwtToken;
 import com.aurora.common.annotation.SystemLog;
+import com.aurora.common.feign.LoggerFeign;
 import com.aurora.common.model.Global;
 import com.aurora.common.model.log.SysLog;
-import com.aurora.common.service.JwtService;
-import com.aurora.common.service.RabbitService;
 import com.aurora.common.utils.IpUtil;
 import com.aurora.common.utils.StringUtil;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -25,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
@@ -41,8 +38,8 @@ public class LogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-    @Autowired
-    RabbitService rabbitService;
+   // @Resource
+   // LoggerFeign loggerFeign;
 
     //定义切点 针对类上注解含有SystemLog
     @Pointcut(value = "@annotation(com.aurora.common.annotation.SystemLog)")
@@ -93,8 +90,8 @@ public class LogAspect {
             log.setLogCreateTime(new Timestamp(System.currentTimeMillis()));
             log.setLogType(1);
 
-            //发送日志到mq
-            rabbitService.sendMsg(log);
+            //发送日志到m
+           // loggerFeign.getLogList("11111111111111111111111111");
         }
     }
 

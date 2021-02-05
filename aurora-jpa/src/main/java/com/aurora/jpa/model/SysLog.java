@@ -2,6 +2,7 @@ package com.aurora.jpa.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,8 @@ import java.util.Date;
 @Entity
 @Table(name = "sys_log")
 @Data
-public class SysLog {
+@EqualsAndHashCode(callSuper=false)
+public class SysLog extends PageModel{
 
     @Id
     //通过uuid 生成组件

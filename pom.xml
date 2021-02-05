@@ -38,6 +38,7 @@
     <module>aurora-esearch</module>
     <module>aurora-logger</module>
     <module>aurora-jpa</module>
+    <module>aurora-mq</module>
   </modules>
 
 
@@ -57,11 +58,22 @@
   <!-- 项目依赖-->
   <dependencies>
 
-    <!--RabbitMq-->
+    <!--服务跟踪sleuth -->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.cloud</groupId>-->
+      <!--<artifactId>spring-cloud-starter-sleuth</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.cloud</groupId>-->
+      <!--<artifactId>spring-cloud-starter-zipkin</artifactId>-->
+    <!--</dependency>-->
+
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-amqp</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
     </dependency>
+
+
 
     <!-- actuator健康检查  -->
     <dependency>

@@ -40,7 +40,12 @@ public class DataJpaConfig {
         return jpaVendorAdapter;
     }
 
-    // 配置实体管理器工厂
+    /***
+     * 配置实体管理器工厂
+     * @param dataSource
+     * @param jpaVendorAdapter
+     * @return
+     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
